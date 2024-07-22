@@ -7,7 +7,7 @@ current_directory = Path.cwd()
 for item in current_directory.iterdir():
     print(item)
 
-# !!! 他真的會刪除
+# !!! 他真的會刪除 我下面的先註解掉防止不小心按到
 
 # 刪除當前目錄中的檔案和目錄
 # for item in current_directory.iterdir():
