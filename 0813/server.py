@@ -101,7 +101,7 @@ def handle_reverse_shell(conn):
             print("Command cannot be empty")
 
 
-# pip install tabulate
+
 def list_clients():
     with clients_lock:
         if not clients:
