@@ -1,0 +1,100 @@
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+.container {
+    display: flex;
+    flex-direction: row; /* 更改為 row 使項目水平對齊 */
+    justify-content: space-between;
+    gap: 20px; /* 添加間距，例如 20px */
+    padding: 20px;
+}
+
+.neon {
+    margin-bottom: 20px;  /* 設定底部邊距為 20 像素 */
+}
+
+
+.log-section {
+    width: 48%;
+    margin-bottom: 20px;
+    background-color: #1e1e1e; /*深灰色*/
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.server-section {
+    width: 48%;
+    margin-bottom: 20px;
+    background-color: #1e1e1e; /*深灰色*/
+    padding: 15px;
+    border-radius: 5px;
+}
+
+
+.log-section h2 , .server-section h2 {  /*h2區域標題顏色*/
+    margin-top: 0;
+    color: #00ff00;
+    text-align: center; /* 將文字水平置中 */
+}
+
+/*內部面板*/
+#operationLog {
+    width: 95%;  
+    height: 400px;
+    background-color: #000000;
+    color: #00ff00;
+    padding: 10px;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    overflow-y: scroll;
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+
+#serverStatus {
+    width: 95%;  
+    height: 500px;
+    background-color: #000000;
+    color: #00ff00;
+    padding: 10px;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    overflow-y: scroll;
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row; /* 更改為 row 使項目水平對齊 */
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* 新增的按鈕區樣式 */
+.log-buttons {
+    display: flex; /* 使用 Flexbox 佈局 */
+    flex-direction: row; /* 水平排列按鈕 */
+    gap: 10px; /* 按鈕之間的間距 */
+    margin-top: 20px; /* 與操作日誌區域保持距離 */
+}
+
+.log-buttons button {
+    padding: 10px 20px; /* 設定內邊距 */
+    border: none; /* 去除邊框 */
+    border-radius: 5px; /* 圓角邊框 */
+    background-color: #ccd8dd; /* 亮綠色背景 */
+    color: #1e1e1e; /* 深灰色文字 */
+    cursor: pointer; /* 鼠標變成手指圖示 */
+    transition: background-color 0.3s, transform 0.2s; /* 添加過渡效果 */
+}
+
+.log-buttons button:hover {
+    background-color: #a1f0a1; /* 懸停時更亮的綠色 */
+    transform: scale(1.05); /* 懸停時稍微放大 */
+}
+
+

@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+.neon {
+    
+    position: relative;
+    overflow: hidden;
+    filter: brightness(200%);
+    animation: scaleUpFadeOut 3s forwards; /* 添加逐漸放大和淡出動畫 */
+}
+
+.text {
+    background-color: black;
+    color: white;
+    font-size: 90px;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    position: relative;
+    user-select: none;
+}
+
+.text::before {
+    content: attr(data-text);
+    position: absolute;
+    color: white;
+    font-size: 90px; /* 確保大小一致 */
+    filter: blur(0.01em);
+    mix-blend-mode: difference;
+}
+
+.gradient {
+    position: absolute;
+    background: linear-gradient(45deg, red, blue);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    mix-blend-mode: multiply;
+}
+
+.spotlight {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, white, transparent 25%) center / 25% 25%,
+    radial-gradient(circle, white, black 25%) center / 12.5% 12.5%;
+    animation: light 5s linear infinite;
+    mix-blend-mode: color-dodge;
+}
+
+
+/* 動畫效果 */
+@keyframes scaleUpFadeOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2); /* 字體逐漸放大 */
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(2); /* 最後階段的放大倍數 */
+        opacity: 0; /* 淡出消失 */
+    }
+}
+
+/* 控制 spotlights 的動畫 */
+@keyframes light {
+    to {
+        transform: translate(50%, 50%);
+    }
+}
