@@ -204,9 +204,6 @@ def send_command():
 
             elif command == "7":
                 print('停止鍵盤記錄')
-                with ThreadPoolExecutor() as executor:
-                    future = executor.submit(receive_file)
-                    future.result()  # Wait for the result
 
             client_socket.send(command.encode())    
             status_var.set(f"已發送命令: {command}")
