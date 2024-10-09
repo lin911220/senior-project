@@ -293,48 +293,6 @@ def receive_file():
         else:
             print(f"Received data of incorrect size: expected {fileinfo_size}, got {len(buf)}")
 
-# def receive_file(conn):
-#     fileinfo_size = struct.calcsize('128sl')
-
-#     # 確保接收到足夠的數據
-#     buf = b''
-#     while len(buf) < fileinfo_size:
-#         packet = conn.recv(fileinfo_size - len(buf))
-#         if not packet:
-#             raise ConnectionError("Connection lost while receiving file info")
-#         buf += packet
-
-#     if len(buf) == fileinfo_size:
-#         filename, filesize = struct.unpack('128sl', buf)
-#         filename = filename.strip(b'\x00').decode()
-
-#         timestamp = time.strftime("%Y%m%d_%H%M%S")
-#         directory = os.path.join('./received_files', time.strftime("%Y/%m%d"))
-#         os.makedirs(directory, exist_ok=True)
-
-#         base, ext = os.path.splitext(filename)
-#         new_filename = os.path.join(directory, f"{timestamp}_{base}{ext}")
-
-#         recvd_size = 0
-#         with open(new_filename, 'wb') as file:
-#             while recvd_size < filesize:
-#                 chunk_size = min(filesize - recvd_size, 1024)
-#                 data = conn.recv(chunk_size)
-#                 if not data:
-#                     print("Connection lost during file transfer")
-#                     break
-#                 recvd_size += len(data)
-#                 file.write(data)
-
-#         # 確認結束標誌
-#         end_marker = conn.recv(1024)
-#         if end_marker != b"END":
-#             append_log(f"文件接收完: {new_filename}")
-
-#         print(f"{new_filename} 接收完")
-#     else:
-#         print(f"Received data of incorrect size: expected {fileinfo_size}, got {len(buf)}")
-
 
 def connect_to_server():
     global client_socket
