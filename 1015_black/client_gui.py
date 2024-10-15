@@ -162,7 +162,7 @@ class NumShotsDialog(tk.Toplevel):
         self.entry.grid(row=1, column=0, padx=40, pady=20, sticky="we")
 
         # 提交按钮
-        self.submit_button = tk.Button(self, text="Submit", font=("Arial", 20), command=self.on_submit, bg="blue", fg="white")  # 设置按钮颜色
+        self.submit_button = tk.Button(self, text="Submit", font=("Arial", 20), command=self.on_submit, bg="#2196F3", fg="white")  # 设置按钮颜色
         self.submit_button.grid(row=2, column=0, pady=30, padx=20)
 
         self.result = None
@@ -188,6 +188,7 @@ def ask_num_shots(title, prompt):
     root.wait_window(dialog)
 
     return dialog.result
+
 ##################################################滑鼠寶寶
 class CustomDialog(tk.Toplevel):
     def __init__(self, parent, title=None, prompt=None):
@@ -203,14 +204,14 @@ class CustomDialog(tk.Toplevel):
         self.label = tk.Label(self, text=prompt, font=("Arial", 23), fg="#f0f0f0", bg="#000")
         self.label.grid(row=0, column=0, padx=20, pady=10, sticky="w")
 
-        self.entry = tk.Entry(self, font=("Arial", 23), width=40, fg="#f0f0f0", bg="#222")
+        self.entry = tk.Entry(self, font=("Arial", 23), width=70, fg="#f0f0f0", bg="#222")
         self.entry.grid(row=3, column=0, padx=40, pady=30, sticky="we")
 
         # 创建表格
         self.create_table()
 
         # 提交按钮
-        self.submit_button = tk.Button(self, text="Submit", font=("Arial", 20), command=self.on_submit)
+        self.submit_button = tk.Button(self, text="Submit", font=("Arial", 20), command=self.on_submit,bg="#2196F3", fg="white")
         self.submit_button.grid(row=5, column=0, pady=30)
 
         self.result = None
@@ -218,14 +219,31 @@ class CustomDialog(tk.Toplevel):
 
     def create_table(self):
 
+        style = ttk.Style()
+         # 设置 Treeview 的行背景颜色为黑色，字体颜色为白色
+        style.configure("Custom.Treeview",
+                        background="#000",  # 表格背景
+                        fieldbackground="#000",  # 单元格背景
+                        foreground="#f0f0f0",  # 字体颜色
+                        rowheight=25)  # 行高
+
+        # 设置选中行的背景颜色为灰色（#222），前景颜色为白色
+        style.map("Custom.Treeview",
+                  background=[('selected', '#222')],  # 选中行的背景色
+                  foreground=[('selected', '#f0f0f0')])  # 选中行的前景色
+
+        # 设置表头样式
+        style.configure("Custom.Treeview.Heading",
+                        background="#333",  # 表头背景
+                        foreground="#f0f0f0",  # 表头字体颜色
+                        font=("Arial", 14))
+
         # 定义表格
-        self.table = ttk.Treeview(self, columns=("command", "description"), show="headings", height=8,style="Treeview.Label")
+        self.table = ttk.Treeview(self, columns=("command", "description"), show="headings", height=8, style="Custom.Treeview")
         self.table.grid(row=2, column=0, padx=20, pady=10, sticky="we")
 
-        
-
         # 设置表头
-        self.table.heading("command", text="Command")
+        self.table.heading("command", text="Command" )
         self.table.heading("description", text="Description")
 
         # 定义列宽
@@ -243,9 +261,23 @@ class CustomDialog(tk.Toplevel):
             ("double click right", "Double click the right mouse button"),
             ("exit", "Exit the control loop")
         ]
+        self.table.tag_configure('black_bg', background='#222', foreground='#f0f0f0')
 
         for cmd, desc in commands:
-            self.table.insert("", "end", values=(cmd, desc))
+            self.table.insert("", "end", values=(cmd, desc), tags=('black_bg',))
+
+         # 绑定选中事件，点击后将命令显示到 entry
+        self.table.bind("<<TreeviewSelect>>", self.on_item_selected)
+
+    def on_item_selected(self, event):
+        # 获取选中的项
+        selected_item = self.table.selection()
+        if selected_item:
+            item = self.table.item(selected_item)
+            command = item["values"][0]  # 获取第一列（command）的值
+            self.entry.delete(0, tk.END)  # 清除 entry 中的现有内容
+            self.entry.insert(0, command)  # 将选中的 command 显示在 entry 中
+
 
     def on_submit(self):
         self.result = self.entry.get()
@@ -408,10 +440,10 @@ class CommandInputDialog(tk.Toplevel):
         # 提交按钮
         self.submit_button = tk.Button(
             self,
-            text="提交",  # 将按钮文字改为中文
+            text="Submit",  
             font=("Arial", 20),  # 增大字体大小
             command=self.on_submit,
-            bg="blue",           # 设置按钮背景颜色
+            bg="#2196F3",           # 设置按钮背景颜色
             fg="white",          # 设置按钮文字颜色
         )
         self.submit_button.grid(row=2, column=0, pady=30, padx=20)  # 增加 padx 以放大按钮
@@ -799,7 +831,7 @@ root.option_add('*TCombobox*Listbox.selectBackground', '#2aa198')  # 設置選�
 root.option_add('*TCombobox*Listbox.selectForeground', '#000')  # 設置選中項目的前景色（文字顏色）
 
 # Send button
-send_button = Button(command_frame, text="send", command=send_command, bg="#2196F3", fg="white", width=10, height=1, font=("Arial", 23) ) # 設置字體大小  # 設置寬度和高度
+send_button = Button(command_frame, text="Send", command=send_command, bg="#2196F3", fg="white", width=10, height=1, font=("Arial", 23) ) # 設置字體大小  # 設置寬度和高度
 send_button.grid(column=0, row=1, columnspan=2, padx=5, pady=10)
 
 # 創建一個主框架，包含日誌區域和圓餅圖區域
