@@ -243,6 +243,7 @@ class NumShotsDialog(tk.Toplevel):
         # 输入框
         self.entry = tk.Entry(self, font=("Arial", 32), bg="grey", fg="white")  # 设置输入框背景为灰色，文字为白色
         self.entry.grid(row=1, column=0, padx=40, pady=20, sticky="we")
+        self.entry.bind("<Return>", lambda event: self.on_submit())  # 绑定 Enter 键
 
         # 提交按钮
         self.submit_button = tk.Button(self, text="Submit", font=("Arial", 20), command=self.on_submit, bg="#2196F3", fg="white")  # 设置按钮颜色
